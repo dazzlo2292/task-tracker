@@ -1,0 +1,11 @@
+ create table if not exists tasks_tab (
+    id varchar(36) PRIMARY KEY NOT NULL,
+    title VARCHAR(50) NOT NULL,
+    description VARCHAR(1024),
+    assignee VARCHAR(50) NOT NULL,
+    status VARCHAR(50),
+    priority VARCHAR(10),
+    due_date timestamp,
+    created_at timestamp default now(),
+    updated_at timestamp default now()
+ );
