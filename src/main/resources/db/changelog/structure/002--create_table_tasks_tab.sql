@@ -2,7 +2,7 @@
     id varchar(36) PRIMARY KEY NOT NULL,
     title VARCHAR(50) NOT NULL,
     description VARCHAR(1024),
-    assignee VARCHAR(50) NOT NULL,
+    assignee VARCHAR(50) NOT NULL REFERENCES users_tab (id),
     status VARCHAR(50),
     priority VARCHAR(10),
     due_date timestamp,
