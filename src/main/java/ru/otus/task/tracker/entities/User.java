@@ -1,9 +1,6 @@
 package ru.otus.task.tracker.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +16,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private String id;
 
@@ -41,4 +39,13 @@ public class User {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    public User(String name, String login, String role, char blockFlag) {
+        this.name = name;
+        this.login = login;
+        this.role = role;
+        this.blockFlag = blockFlag;
+    }
 }
+
+

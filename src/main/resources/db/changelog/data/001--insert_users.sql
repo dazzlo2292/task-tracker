@@ -1,3 +1,3 @@
-insert into users_tab values
-    (1, 'Администратор', 'admin', 'admin'),
-    (2, 'Исполнитель', 'user', 'user');
+insert into users_tab (name, login, role) values
+    ('Администратор', 'admin', 'admin'),
+    ('Исполнитель', 'user', 'user');

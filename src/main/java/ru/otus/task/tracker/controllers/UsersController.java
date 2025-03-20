@@ -9,6 +9,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.otus.task.tracker.dtos.UserDto;
+import ru.otus.task.tracker.dtos.requests.CreateUserDtoRq;
+import ru.otus.task.tracker.dtos.requests.DeleteUserDtoRq;
 import ru.otus.task.tracker.entities.User;
 import ru.otus.task.tracker.exceptions_handling.ErrorDto;
 import ru.otus.task.tracker.exceptions_handling.ResourceNotFoundException;
@@ -45,4 +47,25 @@ public class UsersController {
     ) {
         return ENTITY_TO_DTO.apply(usersService.getUserByLogin(login).orElseThrow(() -> new ResourceNotFoundException("Пользователь не найден")));
     }
+
+    @PostMapping
+    @Operation(summary = "Запрос на создание/активацию пользователя")
+    public void createUser(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Данные для создания/активации пользователя", required = true)
+            @Parameter(description = "Данные для создания/активации пользователя", required = true)
+            @RequestBody CreateUserDtoRq createUserDtoRq
+    ) {
+        usersService.createUser(createUserDtoRq);
+    }
+
+    @DeleteMapping
+    @Operation(summary = "Запрос на удаление пользователя")
+    public void deleteUser(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Данные для удаления пользователя", required = true)
+            @Parameter(description = "Данные для удаления пользователя", required = true)
+            @RequestBody DeleteUserDtoRq deleteUserDtoRq
+    ) {
+        usersService.deleteUser(deleteUserDtoRq);
+    }
+
 }

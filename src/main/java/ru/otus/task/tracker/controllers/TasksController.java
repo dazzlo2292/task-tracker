@@ -75,17 +75,4 @@ public class TasksController {
     ) {
         return ENTITY_TO_DTO.apply(tasksService.getTaskById(id).orElseThrow(() -> new ResourceNotFoundException("Перевод не найден")));
     }
-
-//    @PostMapping
-//    @Operation(summary = "Запрос на исполнение перевода")
-//    public void executeTransfer(
-//            @Parameter(description = "Идентификатор клиента", required = true, schema = @Schema(type = "string", maxLength = 10, example = "1234567890"))
-//            @RequestHeader(name = "client-id") String clientId,
-//
-////            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Данные для выполнения перевода", required = true)
-//            @Parameter(description = "Данные для выполнения перевода", required = true)
-//            @RequestBody ExecuteTransferDtoRq executeTransferDtoRq
-//    ) {
-//        transfersService.execute(clientId, executeTransferDtoRq);
-//    }
 }
