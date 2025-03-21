@@ -41,7 +41,7 @@ public class TaskDto {
             description = "Идентификатор исполнителя",
             example = "001",
             requiredMode = Schema.RequiredMode.REQUIRED,
-            maxLength = 36
+            maxLength = 5
     )
     private String assignee;
 
@@ -57,7 +57,7 @@ public class TaskDto {
             description = "Приоритет задачи",
             example = "Высокий",
             requiredMode = Schema.RequiredMode.REQUIRED,
-            maxLength = 10
+            maxLength = 20
     )
     private String priority;
 

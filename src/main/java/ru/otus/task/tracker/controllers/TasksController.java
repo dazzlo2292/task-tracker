@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.otus.task.tracker.dtos.TaskDto;
 import ru.otus.task.tracker.dtos.TasksPageDto;
+import ru.otus.task.tracker.dtos.requests.CreateTaskDtoRq;
+import ru.otus.task.tracker.dtos.requests.ChangeTaskStatusDtoRq;
 import ru.otus.task.tracker.entities.Task;
 import ru.otus.task.tracker.exceptions_handling.ErrorDto;
 import ru.otus.task.tracker.exceptions_handling.ResourceNotFoundException;
@@ -27,7 +29,7 @@ public class TasksController {
 
     private static final Function<Task, TaskDto> ENTITY_TO_DTO = t -> new TaskDto(t.getId(), t.getTitle(), t.getDescription(), t.getAssignee(), t.getStatus(), t.getPriority(), t.getDueDate());
 
-    @GetMapping("/{assignee}")
+    @GetMapping("/list")
     @Operation(
             summary = "Запрос списка задач пользователя",
             responses = {
@@ -74,5 +76,28 @@ public class TasksController {
             @PathVariable String id
     ) {
         return ENTITY_TO_DTO.apply(tasksService.getTaskById(id).orElseThrow(() -> new ResourceNotFoundException("Перевод не найден")));
+    }
+
+    @PostMapping
+    @Operation(summary = "Запрос на создание задачи")
+    public void createTask(
+            @Parameter(description = "Логин администратора", required = true, schema = @Schema(type = "string", maxLength = 50, example = "admin"))
+            @RequestHeader(name = "admin-login") String adminLogin,
+
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Данные для создания задачи", required = true)
+            @Parameter(description = "Данные для создания задачи", required = true)
+            @RequestBody CreateTaskDtoRq createTaskDtoRq
+    ) {
+        tasksService.createTask(adminLogin, createTaskDtoRq);
+    }
+
+    @PatchMapping
+    @Operation(summary = "Запрос на изменение статуса задачи")
+    public void changeTaskStatus(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Данные для изменения статуса задачи", required = true)
+            @Parameter(description = "Данные для изменения статуса задачи", required = true)
+            @RequestBody ChangeTaskStatusDtoRq changeTaskStatusDtoRq
+    ) {
+        tasksService.changeTaskStatus(changeTaskStatusDtoRq);
     }
 }

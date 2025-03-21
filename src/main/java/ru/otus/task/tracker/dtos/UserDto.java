@@ -10,7 +10,7 @@ public record UserDto(
                 type = "string",
                 example = "1",
                 requiredMode = Schema.RequiredMode.REQUIRED,
-                maxLength = 36
+                maxLength = 5
         )
         String id,
 
@@ -37,7 +37,7 @@ public record UserDto(
                 type = "string",
                 example = "admin",
                 requiredMode = Schema.RequiredMode.REQUIRED,
-                maxLength = 50
+                maxLength = 20
         )
         String role,
 

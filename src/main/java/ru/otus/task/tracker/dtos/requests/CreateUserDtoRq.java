@@ -34,7 +34,7 @@ public class CreateUserDtoRq {
             type = "string",
             example = "admin",
             requiredMode = Schema.RequiredMode.REQUIRED,
-            maxLength = 50
+            maxLength = 20
     )
     private String role;
 }

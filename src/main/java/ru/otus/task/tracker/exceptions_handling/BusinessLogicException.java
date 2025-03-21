@@ -1,11 +1,10 @@
 package ru.otus.task.tracker.exceptions_handling;
 
-public class BusinessLogicException extends RuntimeException {
-    private String code;
+import lombok.Getter;
 
-    public String getCode() {
-        return code;
-    }
+@Getter
+public class BusinessLogicException extends RuntimeException {
+    private final String code;
 
     public BusinessLogicException(String message, String code) {
         super(message);

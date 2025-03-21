@@ -1,18 +1,13 @@
 package ru.otus.task.tracker.exceptions_handling;
 
+import lombok.Getter;
+
 import java.util.List;
 
+@Getter
 public class ValidationException extends RuntimeException {
-    private String code;
-    private List<ValidationFieldError> errors;
-
-    public String getCode() {
-        return code;
-    }
-
-    public List<ValidationFieldError> getErrors() {
-        return errors;
-    }
+    private final String code;
+    private final List<ValidationFieldError> errors;
 
     public ValidationException(String code, String message, List<ValidationFieldError> errors) {
         super(message);

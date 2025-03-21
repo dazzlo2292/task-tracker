@@ -42,7 +42,7 @@ public class UsersController {
     )
     @GetMapping("/{login}")
     public UserDto getAccountByLogin(
-            @Parameter(description = "Логин пользователя", required = true, schema = @Schema(type = "string", maxLength = 50, example = "nick_admin"))
+            @Parameter(description = "Логин пользователя", required = true, schema = @Schema(type = "string", maxLength = 50, example = "nickname"))
             @PathVariable String login
     ) {
         return ENTITY_TO_DTO.apply(usersService.getUserByLogin(login).orElseThrow(() -> new ResourceNotFoundException("Пользователь не найден")));

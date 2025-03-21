@@ -1,10 +1,14 @@
 package ru.otus.task.tracker.exceptions_handling;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Schema(description = "Ошибка")
+@Getter
+@Setter
 public class ErrorDto {
     @Schema(
             description = "Код ошибки",
@@ -29,30 +33,6 @@ public class ErrorDto {
             requiredMode = Schema.RequiredMode.REQUIRED
     )
     private LocalDateTime dateTime;
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
 
     public ErrorDto(String code, String message) {
         this.code = code;

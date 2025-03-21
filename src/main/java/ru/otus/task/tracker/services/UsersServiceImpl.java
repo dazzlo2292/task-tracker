@@ -52,7 +52,10 @@ public class UsersServiceImpl implements UsersService {
             userRequestValidator.validateDeleteUserRequest(deleteUserDtoRq);
             userRequestValidator.validateDeleteUserParameters(deleteUserDtoRq);
 
-            usersRepository.blockByLogin(deleteUserDtoRq.getLogin());
+            Optional<User> user = usersRepository.findByLogin(deleteUserDtoRq.getLogin());
+
+            user.get().setBlockFlag('Y');
+            usersRepository.save(user.get());
         } catch (Exception e) {
             throw e;
         }

@@ -7,13 +7,9 @@ import org.springframework.stereotype.Repository;
 import ru.otus.task.tracker.entities.Task;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface TasksRepository extends JpaRepository<Task, String> {
-    @Query("SELECT t FROM Task t WHERE t.id = :id")
-    Optional<Task> findById(String id);
-
     @Query("SELECT t FROM Task t WHERE t.assignee = :assignee")
     List<Task> findAllByAssignee(String assignee, Pageable page);
 }
