@@ -33,9 +33,15 @@ public class UserRequestValidator {
         }
     }
 
-    public void validateCreateUserParameters(CreateUserDtoRq createUserDtoRq) {
+    public void validateCreateUserParameters(String adminLogin, CreateUserDtoRq createUserDtoRq) {
+        Optional<User> admin = usersRepository.findByLogin(adminLogin);
         Optional<User> user = usersRepository.findByLogin(createUserDtoRq.getLogin());
 
+        if (admin.isEmpty()) {
+            throw new ResourceNotFoundException("Администратор с указанным логином не найден");
+        } else if (!admin.get().getRole().equals("admin")) {
+            throw new BusinessLogicException("PERMISSION_DENIED","Создание пользователей запрещено для указанного пользователя");
+        }
         if (user.isPresent() && user.get().getBlockFlag() == 'N') {
             throw new BusinessLogicException("INCORRECT_USER_LOGIN","Пользователь с указанным логином уже существует");
         }
@@ -52,11 +58,17 @@ public class UserRequestValidator {
         }
     }
 
-    public void validateDeleteUserParameters(DeleteUserDtoRq deleteUserDtoRq) {
+    public void validateDeleteUserParameters(String adminLogin, DeleteUserDtoRq deleteUserDtoRq) {
+        Optional<User> admin = usersRepository.findByLogin(adminLogin);
         Optional<User> user = usersRepository.findByLogin(deleteUserDtoRq.getLogin());
 
         if (user.isEmpty()) {
             throw new ResourceNotFoundException("Пользователь с указанным логином не найден");
+        }
+        if (admin.isEmpty()) {
+            throw new ResourceNotFoundException("Администратор с указанным логином не найден");
+        } else if (!admin.get().getRole().equals("admin")) {
+            throw new BusinessLogicException("PERMISSION_DENIED","Удаление пользователей запрещено для указанного пользователя");
         }
     }
 }

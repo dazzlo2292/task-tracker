@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface UsersService {
     Optional<User> getUserByLogin(String login);
-    void createUser(CreateUserDtoRq createUserDtoRq);
-    void deleteUser(DeleteUserDtoRq deleteUserDtoRq);
+    void createUser(String adminLogin, CreateUserDtoRq createUserDtoRq);
+    void deleteUser(String adminLogin, DeleteUserDtoRq deleteUserDtoRq);
 }

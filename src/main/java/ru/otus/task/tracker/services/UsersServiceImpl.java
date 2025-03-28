@@ -22,10 +22,10 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public void createUser(CreateUserDtoRq createUserDtoRq) {
+    public void createUser(String adminLogin, CreateUserDtoRq createUserDtoRq) {
         try {
             userRequestValidator.validateCreateUserRequest(createUserDtoRq);
-            userRequestValidator.validateCreateUserParameters(createUserDtoRq);
+            userRequestValidator.validateCreateUserParameters(adminLogin, createUserDtoRq);
 
             Optional<User> currentUser = usersRepository.findByLogin(createUserDtoRq.getLogin());
 
@@ -47,10 +47,10 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public void deleteUser(DeleteUserDtoRq deleteUserDtoRq) {
+    public void deleteUser(String adminLogin, DeleteUserDtoRq deleteUserDtoRq) {
         try {
             userRequestValidator.validateDeleteUserRequest(deleteUserDtoRq);
-            userRequestValidator.validateDeleteUserParameters(deleteUserDtoRq);
+            userRequestValidator.validateDeleteUserParameters(adminLogin, deleteUserDtoRq);
 
             Optional<User> user = usersRepository.findByLogin(deleteUserDtoRq.getLogin());
 

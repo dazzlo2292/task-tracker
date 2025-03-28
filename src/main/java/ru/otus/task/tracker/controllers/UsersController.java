@@ -51,21 +51,27 @@ public class UsersController {
     @PostMapping
     @Operation(summary = "Запрос на создание/активацию пользователя")
     public void createUser(
+            @Parameter(description = "Логин администратора", required = true, schema = @Schema(type = "string", maxLength = 50, example = "admin"))
+            @RequestHeader(name = "admin-login") String adminLogin,
+
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Данные для создания/активации пользователя", required = true)
             @Parameter(description = "Данные для создания/активации пользователя", required = true)
             @RequestBody CreateUserDtoRq createUserDtoRq
     ) {
-        usersService.createUser(createUserDtoRq);
+        usersService.createUser(adminLogin, createUserDtoRq);
     }
 
     @DeleteMapping
     @Operation(summary = "Запрос на удаление пользователя")
     public void deleteUser(
+            @Parameter(description = "Логин администратора", required = true, schema = @Schema(type = "string", maxLength = 50, example = "admin"))
+            @RequestHeader(name = "admin-login") String adminLogin,
+
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Данные для удаления пользователя", required = true)
             @Parameter(description = "Данные для удаления пользователя", required = true)
             @RequestBody DeleteUserDtoRq deleteUserDtoRq
     ) {
-        usersService.deleteUser(deleteUserDtoRq);
+        usersService.deleteUser(adminLogin, deleteUserDtoRq);
     }
 
 }
